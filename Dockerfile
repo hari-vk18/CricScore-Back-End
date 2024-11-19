@@ -1,22 +1,17 @@
-# Use a generic Maven image with OpenJDK 17
-FROM maven:3.8.5-openjdk-17-slim AS build
+# Use an OpenJDK base image
+FROM openjdk:21-jdk-slim
 
+# Update apt and install Maven
+RUN apt-get update && apt-get install -y maven
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the project files
+# Copy the project files into the container
 COPY . .
 
 # Run Maven to build the project
 RUN mvn clean package -DskipTests
 
-# Use OpenJDK image to run the app
-FROM openjdk:21-jdk-slim
-
-
-WORKDIR /app
-
-# Copy the JAR file from the build stage
-COPY --from=build /app/target/CricScore-0.0.1-SNAPSHOT.jar app.jar
-
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Define the entry point
+ENTRYPOINT ["java", "-jar", "target/your-app.jar"]

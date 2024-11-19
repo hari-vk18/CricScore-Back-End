@@ -14,4 +14,4 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Define the entry point
-ENTRYPOINT ["java", "-jar", "target/your-app.jar"]
+ENTRYPOINT ["java", "-jar", "target/CricScore-0.0.1-SNAPSHOT.jar"]

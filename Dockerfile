@@ -1,5 +1,5 @@
-# Use Maven image to build the project
-FROM maven:3.8.7-openjdk-21-slim AS build
+# Use a different Maven image version that is available
+FROM maven:3.8.7-openjdk-17-slim AS build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 RUN ./mvnw clean package -DskipTests
 
 # Use OpenJDK image to run the app
-FROM openjdk:21-jdk-slim
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
